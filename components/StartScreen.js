@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {Platform, Switch, Text, View, TextInput, Image, Button, Alert } from 'react-native';
+import { Switch, Text, View, TextInput, Image, Button, Alert } from 'react-native';
 //import ToggleSwitch from 'toggle-switch-react-native'
 photo = './tang4'
 import styles from './Styles/StylesStartScreen'
+
+
 
 
 
@@ -11,14 +13,20 @@ export default class StartScreen extends Component {
   constructor(props) {
     super(props)
     this.state = {username: ''}
-    this.handleChangeText = this.handleChangeText.bind(this)
+    //this.handleChangeText = this.handleChangeText.bind(this)
+    //this.buttonPressed = this.buttonPressed.bind(this)
   }
   handleChangeText(newText) {
     this.setState({
       username: newText
     })
   }
-
+/*
+  buttonPressed () {
+    this.props.navigation.navigate('Details')
+    console.log(this.handleChangeText)
+  }
+*/
   render() {
     return (
       <View style={styles.container}>
@@ -28,9 +36,9 @@ export default class StartScreen extends Component {
 
         <View style = {{flex:1.25}}>
           <Text style = {styles.description}>Username or Client/Card Number</Text>
-          <TextInput style = {styles.input}> 
+          <TextInput style = {styles.input}
           defaultValue= {this.state.username}
-          onChangeText ={this.state.handleChangeText}</TextInput>
+          onChangeText ={username =>this.setState({username})}/>
           <View style = {{marginLeft:20, flex: 0.25, alignItems:'flex-start'}}>
           <Switch
             color = 'grey'
@@ -67,10 +75,14 @@ export default class StartScreen extends Component {
         <View style = {{flex:0.75, borderWidth:1,flexDirection: 'row', backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', }}>
           <Text style = {{color: 'orange', fontWeight: 'bold', margin: 10}}>Feedback</Text>
           <Button 
-            onPress = {() => {
-              if (props.handleChangeText === 'ramesh') {this.props.navigation.navigate('Details')}
+            onPress = {() => 
+              {if (this.state.username === 'ramesh') {
+                this.props.navigation.navigate('Details')
+              } else {
+                Alert.alert(Alert, 'Please Enter a Username')
+              }
               }}
-            color= 'orange'
+            color= 'orange' 
             fontWeight= 'bold' 
             title = 'Log Me In' 
           />
