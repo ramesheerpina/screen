@@ -4,19 +4,20 @@ import {Platform, Switch, Text, View, TextInput, Image, Button, Alert } from 're
 photo = './tang4'
 import styles from './Styles/StylesStartScreen'
 
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+
 
 
 export default class StartScreen extends Component {
-constructor(props) {
-  super(props)
-  this.state = {username: 'Enter Your Username'}
-}
+  constructor(props) {
+    super(props)
+    this.state = {username: ''}
+    this.handleChangeText = this.handleChangeText.bind(this)
+  }
+  handleChangeText(newText) {
+    this.setState({
+      username: newText
+    })
+  }
 
   render() {
     return (
@@ -27,7 +28,9 @@ constructor(props) {
 
         <View style = {{flex:1.25}}>
           <Text style = {styles.description}>Username or Client/Card Number</Text>
-          <TextInput style = {styles.input}> {this.state.username}</TextInput>
+          <TextInput style = {styles.input}> 
+          defaultValue= {this.state.username}
+          onChangeText ={this.state.handleChangeText}</TextInput>
           <View style = {{marginLeft:20, flex: 0.25, alignItems:'flex-start'}}>
           <Switch
             color = 'grey'
@@ -64,7 +67,9 @@ constructor(props) {
         <View style = {{flex:0.75, borderWidth:1,flexDirection: 'row', backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', }}>
           <Text style = {{color: 'orange', fontWeight: 'bold', margin: 10}}>Feedback</Text>
           <Button 
-            onPress = {() => this.props.navigation.navigate('Details')}
+            onPress = {() => {
+              if (props.handleChangeText === 'ramesh') {this.props.navigation.navigate('Details')}
+              }}
             color= 'orange'
             fontWeight= 'bold' 
             title = 'Log Me In' 
